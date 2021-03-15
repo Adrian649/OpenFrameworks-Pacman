@@ -8,7 +8,10 @@ class GhostSpawner: public Entity{
         void spawnGhost(string);
         void keyPressed(int);
         void tick();
+        string random_color;
+        
     private:
         EntityManager* em;
         int spawnCounter = 30*5;
+
 };

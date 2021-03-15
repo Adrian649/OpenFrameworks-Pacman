@@ -1,5 +1,7 @@
 #include "GhostSpawner.h"
 #include "Ghost.h"
+#include <random>
+#include <iterator>
 
 GhostSpawner::GhostSpawner(int x, int y, int width, int height, EntityManager* em, ofImage sprite) : Entity(x, y, width, height){
     this->em = em;
@@ -13,11 +15,14 @@ GhostSpawner::GhostSpawner(int x, int y, int width, int height, EntityManager* e
 
 void GhostSpawner::tick(){
     std::vector<string> colors;
+   
     colors.push_back("red");
     colors.push_back("pink");
     colors.push_back("cyan");
     colors.push_back("orange");
-
+ //-------------------------------------------------   
+    random_color = colors[rand() % colors.size()]; //variable that gets a random string from the color vector
+ //-------------------------------------------------
     if(em->ghosts.size()<4){
         if(spawnCounter == 0){
             spawnGhost(colors[ofRandom(4)]);
@@ -34,6 +39,6 @@ void GhostSpawner::spawnGhost(string color){
 
 void GhostSpawner::keyPressed(int key){
     if(key == 'g'){
-        spawnGhost("red");
+     spawnGhost(random_color);
     }
 }

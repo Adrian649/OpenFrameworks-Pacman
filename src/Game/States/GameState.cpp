@@ -38,6 +38,8 @@ void GameState::keyReleased(int key){
 void GameState::reset(){
 	setFinished(false);
 	setNextState("");
+	delete map;
+	map = MapBuilder().createMap(mapImage);
 }
 
 int GameState::getFinalScore(){

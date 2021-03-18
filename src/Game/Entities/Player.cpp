@@ -176,7 +176,7 @@ void Player::checkCollisions(){
                 score += 10;
             }
             if(dynamic_cast<BigDot*>(entity)){
-                score +=10;
+                score +=20;
                 em->setKillable(true);
             }
         }

@@ -2,6 +2,7 @@
 #include "Animation.h"
 
 #include "EntityManager.h"
+#include "PowerUp.h"
 
 class Player: public Entity{
 
@@ -27,6 +28,8 @@ class Player: public Entity{
         void setHealth(int);
         int getScore();
         void setScore(int);
+        int getPos();
+        void setPos(int);
         void tick();
         void render();
         void keyPressed(int);

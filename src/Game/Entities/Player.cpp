@@ -38,7 +38,6 @@ Player::Player(int x, int y, int width, int height, EntityManager* em) : Entity(
     walkUp = new Animation(1,upAnimframes);
     walkLeft = new Animation(1,leftAnimframes);
     walkRight = new Animation(1,rightAnimframes);
-
     this->em = em;
     
 }
@@ -135,6 +134,14 @@ int Player::getScore(){
 
 void Player::setScore(int h){
     score = h;
+}
+
+int Player::getPos() {
+    return x;
+}
+
+void Player::setPos(int pos) {
+    x = pos;
 }
 
 void Player::checkCollisions(){

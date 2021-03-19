@@ -4,6 +4,7 @@
 #include "MenuState.h"
 #include "GameState.h"
 #include "GameOverState.h"
+#include "WinState.h"
 
 class ofApp : public ofBaseApp{
 
@@ -12,6 +13,7 @@ private:
 	MenuState *menuState;
 	GameState *gameState;
 	GameOverState *gameOverState;
+	WinState *winState;
 
 
 public:

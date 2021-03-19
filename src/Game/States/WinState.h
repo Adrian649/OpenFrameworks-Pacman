@@ -6,6 +6,7 @@
 class WinState : public State {
 private:
 	ofImage img1;
+	ofImage win;
 	Button *startButton;
 	Animation* anim;
 	int score=0;

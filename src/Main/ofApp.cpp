@@ -3,13 +3,14 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-	ofSetFrameRate(30);
+	ofSetFrameRate(60);
 	ofSetWindowTitle("Pacman");
 	//States
 	menuState = new MenuState();
 	gameState = new GameState();
 	gameOverState = new GameOverState();
 	winState = new WinState();
+	pauseState = new PauseState();
 	// Initial State
 	currentState = menuState;
 }
@@ -29,6 +30,9 @@ void ofApp::update(){
 			}else if(currentState->getNextState() == "win"){
 				winState->setScore(gameState->getFinalScore());
 				currentState = winState;
+			}else if(currentState->getNextState() == "pause"){
+				currentState = pauseState;
+				currentState->isPaused = false;
 			}
 			currentState->reset();
 		}

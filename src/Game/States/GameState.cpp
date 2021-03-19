@@ -25,6 +25,10 @@ void GameState::tick() {
 		finalScore = map->getPlayer()->getScore();
 		map->getPlayer()->setScore(0);
 	}
+	else if(getNextState() == "pause"){
+        setNextState("pause");
+		setFinished(true);
+	}
 }
 void GameState::render() {
 	map->render();
@@ -39,6 +43,11 @@ void GameState::keyPressed(int key){
 		finalScore = map->getPlayer()->getScore();
 		map->getPlayer()->setScore(0);
 	}
+	else if(key == 'p'){
+		isPaused = true;
+        setNextState("pause");
+		setFinished(true);
+	}
 }
 
 void GameState::mousePressed(int x, int y, int button){
@@ -52,8 +61,10 @@ void GameState::keyReleased(int key){
 void GameState::reset(){
 	setFinished(false);
 	setNextState("");
-	delete map;
-	map = MapBuilder().createMap(mapImage);
+	if(!isPaused){
+		delete map;
+		map = MapBuilder().createMap(mapImage);
+	}
 }
 
 int GameState::getFinalScore(){

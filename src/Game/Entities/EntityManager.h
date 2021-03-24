@@ -12,6 +12,11 @@ public:
 	void tick();
 	void render();
 	void setKillable(bool);
+	vector<Entity*> getEntities();
+	void getPlayerScore();
+	bool flag = false;
+	int randGhostCount = 0;
+	int normalGhostCount = 4;
 
 private:
 	bool killable = false;

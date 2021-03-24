@@ -43,6 +43,10 @@ void Map::setPlayer(Player* p){
 Player* Map::getPlayer(){
 	return player;
 }
+
+GhostSpawner* Map::getGhostSpawner() {
+	return gs;
+}
 void Map::setGhostSpawner(GhostSpawner* p){
     gs = p;
 }

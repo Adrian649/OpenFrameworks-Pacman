@@ -3,7 +3,7 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-	ofSetFrameRate(60);
+	ofSetFrameRate(30);
 	ofSetWindowTitle("Pacman");
 	//States
 	menuState = new MenuState();

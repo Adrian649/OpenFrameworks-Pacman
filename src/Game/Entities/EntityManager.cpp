@@ -1,5 +1,7 @@
 #include "EntityManager.h"
 #include "Ghost.h"
+#include "Player.h"
+#include "RandomGhost.h"
 void EntityManager::tick(){
     if(killable){
         killableCounter--;
@@ -8,6 +10,10 @@ void EntityManager::tick(){
             for(Entity* entity:ghosts){
                 Ghost* ghost = dynamic_cast<Ghost*>(entity); 
                 ghost->setKillable(false);
+                if (dynamic_cast<RandomGhost*>(entity)) {
+                    RandomGhost* rGhost = dynamic_cast<RandomGhost*>(entity);
+                    rGhost->setKillable(false);
+        }
             }
         }
     }
@@ -63,6 +69,10 @@ void EntityManager::setKillable(bool k){
     for(Entity* entity:ghosts){
         Ghost* ghost = dynamic_cast<Ghost*>(entity); 
         ghost->setKillable(true);
+        if (dynamic_cast<RandomGhost*>(entity)) {
+            RandomGhost* rGhost = dynamic_cast<RandomGhost*>(entity);
+            rGhost->setKillable(true);
+        }
     }
 }
 
@@ -82,3 +92,8 @@ EntityManager::~EntityManager(){
     ghosts.clear();
     entities.clear();
 }
+
+vector<Entity*> EntityManager::getEntities() {
+    return entities;
+}
+

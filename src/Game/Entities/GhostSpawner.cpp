@@ -1,6 +1,7 @@
 #include "GhostSpawner.h"
 #include "Ghost.h"
 #include "RandomGhost.h"
+#include "PeekABooGhost.h"
 #include <random>
 #include <iterator>
 #include "Dot.h"
@@ -41,6 +42,12 @@ void GhostSpawner::tick(){
     if (score > 500 && em->randGhostCount == 0) {
         randomGhostSpawner();
     }
+    if (score == 1000 && !peekABooFlag) {
+        spawnPeekABooGhost("cyan");
+    }
+    if (score > 1000 && em->peekGhostCount == 0) {
+        spawnPeekABooGhost("cyan");
+    }
 }
 
 void GhostSpawner::spawnGhost(string color){
@@ -65,6 +72,13 @@ void GhostSpawner::randomGhostSpawner() {
 		spawnRandomGhost(posX, posY, "red");
 		flag = true;
 	}
+}
+
+void GhostSpawner::spawnPeekABooGhost(string color) {
+    PeekABooGhost* g = new PeekABooGhost(x,y,width-2,height-2,sprite,em,color);
+    em->ghosts.push_back(g);
+    em->peekGhostCount++;
+    peekABooFlag = true;
 }
 
 void GhostSpawner::keyPressed(int key){

@@ -38,6 +38,8 @@ void GameState::tick()
 	}
 	score = map->getPlayer()->getScore(); 
 	map->getGhostSpawner()->score = score;
+	map->getEntityManager()->playerPositionX = map->getPlayer()->getPos();
+	map->getEntityManager()->playerPositionX = map->getPlayer()->getPosY();
 }
 void GameState::render()
 {

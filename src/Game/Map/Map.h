@@ -10,6 +10,7 @@ class Map{
       void setPlayer(Player*);
       Player* getPlayer();
       GhostSpawner* getGhostSpawner();
+      EntityManager* getEntityManager();
       void setGhostSpawner(GhostSpawner*);
       void tick();
       void render();

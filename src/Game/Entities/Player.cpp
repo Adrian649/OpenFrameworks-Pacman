@@ -4,6 +4,7 @@
 #include "BigDot.h"
 #include "Ghost.h"
 #include "RandomGhost.h"
+#include "PeekABooGhost.h"
 
 Player::Player(int x, int y, int width, int height, EntityManager *em) : Entity(x, y, width, height)
 {
@@ -249,6 +250,9 @@ void Player::checkCollisions()
                 if (dynamic_cast<RandomGhost*>(entity)) {
                     em->randGhostCount = 0;
                     em->counter += 1;
+                }
+                if (dynamic_cast<PeekABooGhost*>(entity)) {
+                    em->peekGhostCount = 0;
                 }
                 if (em->randGhostCount != 0) {
                     if (dynamic_cast<Ghost*>(entity)) {

@@ -16,10 +16,13 @@ public:
 	void getPlayerScore();
 	bool flag = false;
 	int randGhostCount = 0;
+	int peekGhostCount = 0;
 	int normalGhostCount = 4;
 	int counter = 0;
     int PosX;
 	int PosY;
+	int playerPositionX;
+	int playerPositionY;
 private:
 	bool killable = false;
 	int killableCounter;

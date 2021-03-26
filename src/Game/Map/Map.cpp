@@ -51,6 +51,10 @@ void Map::setGhostSpawner(GhostSpawner* p){
     gs = p;
 }
 
+EntityManager* Map::getEntityManager() {
+	return entityManager;
+}
+
 Map::~Map(){
 	delete player;
 	delete  entityManager;

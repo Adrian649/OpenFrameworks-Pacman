@@ -2,6 +2,8 @@
 #include "Ghost.h"
 #include "Player.h"
 #include "RandomGhost.h"
+#include "PeekABooGhost.h"
+
 void EntityManager::tick(){
     if(killable){
         killableCounter--;
@@ -13,7 +15,11 @@ void EntityManager::tick(){
                 if (dynamic_cast<RandomGhost*>(entity)) {
                     RandomGhost* rGhost = dynamic_cast<RandomGhost*>(entity);
                     rGhost->setKillable(false);
-        }
+                }
+                if (dynamic_cast<PeekABooGhost*>(entity)) {
+                    PeekABooGhost* pGhost = dynamic_cast<PeekABooGhost*>(entity);
+                    pGhost->setKillable(false);
+                }
             }
         }
     }
@@ -72,6 +78,10 @@ void EntityManager::setKillable(bool k){
         if (dynamic_cast<RandomGhost*>(entity)) {
             RandomGhost* rGhost = dynamic_cast<RandomGhost*>(entity);
             rGhost->setKillable(true);
+        }
+        if (dynamic_cast<PeekABooGhost*>(entity)) {
+            PeekABooGhost* pGhost = dynamic_cast<PeekABooGhost*>(entity);
+            pGhost->setKillable(true);
         }
     }
 }

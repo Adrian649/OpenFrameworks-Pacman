@@ -22,4 +22,5 @@ class MapBuilder {
         ofImage tempBound;
         ofImage getSprite(ofImage, int, int);
         EntityManager* entityManager;
+
 };

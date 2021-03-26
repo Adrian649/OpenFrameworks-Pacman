@@ -45,6 +45,7 @@ Player::Player(int x, int y, int width, int height, EntityManager *em) : Entity(
     walkLeft = new Animation(1, leftAnimframes);
     walkRight = new Animation(1, rightAnimframes);
     this->em = em;
+    r_powerup = new RandomPowerUp(em);
 }
 void Player::tick()
 {
@@ -131,6 +132,14 @@ void Player::keyPressed(int key)
             health++;
         }
         break;
+    case ' ':  //When spacebar is Pressed it teleports the player to a random position
+     if (em->counter >= 1){
+        powerup = r_powerup;
+        powerup->activate();
+        setPos(em->PosX);
+        setPosY(em->PosY);
+        em->counter -= 1;
+      }
     }
 }
 
@@ -178,7 +187,10 @@ void Player::setPos(int pos)
 {
     x = pos;
 }
-
+void Player::setPosY(int posY)
+{
+    y = posY;
+}
 void Player::checkCollisions()
 {
     for (BoundBlock *BoundBlock : em->BoundBlocks)
@@ -236,6 +248,7 @@ void Player::checkCollisions()
             {
                 if (dynamic_cast<RandomGhost*>(entity)) {
                     em->randGhostCount = 0;
+                    em->counter += 1;
                 }
                 if (em->randGhostCount != 0) {
                     if (dynamic_cast<Ghost*>(entity)) {

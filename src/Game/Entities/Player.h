@@ -3,6 +3,7 @@
 
 #include "EntityManager.h"
 #include "PowerUp.h"
+#include "RandomPowerUp.h"
 
 class Player: public Entity{
 
@@ -20,7 +21,9 @@ class Player: public Entity{
         Animation *walkLeft;
         Animation *walkRight;
         EntityManager* em;
-
+        PowerUp* powerup;
+        RandomPowerUp* r_powerup;
+        
     public:
         Player(int, int, int , int, EntityManager*);
         ~Player();
@@ -30,6 +33,7 @@ class Player: public Entity{
         void setScore(int);
         int getPos();
         void setPos(int);
+        void setPosY(int);
         void tick();
         void render();
         void keyPressed(int);

@@ -13,7 +13,7 @@ class Player: public Entity{
         int health=3;
         int score=0;
         bool canMove;
-        int speed = 8;
+        int speed = 4;
         bool walking = false;
         FACING facing = DOWN;
         ofImage up, down, left, right;
@@ -25,6 +25,8 @@ class Player: public Entity{
         PowerUp* powerup;
         RandomPowerUp* r_powerup;
         InvisiblePowerUp* invisible;
+        ofImage in_powerup;
+        ofImage rand_powerup;
         
     public:
         Player(int, int, int , int, EntityManager*);

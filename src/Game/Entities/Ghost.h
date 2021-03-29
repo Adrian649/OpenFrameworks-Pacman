@@ -16,7 +16,7 @@ class Ghost: public Entity{
         bool canMove = true;
         bool justSpawned=true;
         void checkCollisions();
-        int speed=3;
+        int speed = 3;
         EntityManager* em;
         Animation* killableAnim;
 

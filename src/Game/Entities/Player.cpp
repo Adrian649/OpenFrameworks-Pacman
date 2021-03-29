@@ -138,6 +138,18 @@ void Player::render()
         ofDrawCircle(ofGetWidth() / 2 + 25 * i + 200, 50, 10);
     }
     ofDrawBitmapString("Score:" + to_string(score), ofGetWidth() / 2 - 200, 50);
+
+    //--------------------------------------------------------// Icons for power-ups
+    if(em->in_counter >= 1){ 
+        in_powerup.load("images/InvisiblePowerUp.png");
+        ofSetColor(25,224,227);
+        in_powerup.draw(ofGetWidth() / 2 + 350, 70, 80,52);
+    }
+    if(em->r_counter >= 1){
+        rand_powerup.load("images/RandomPowerUp.png");
+        ofSetColor(25,224,227);
+        rand_powerup.draw(ofGetWidth() / 2 + 350, 150, 80,52);
+    }
 }
 
 void Player::keyPressed(int key)

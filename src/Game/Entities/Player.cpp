@@ -47,6 +47,9 @@ Player::Player(int x, int y, int width, int height, EntityManager *em) : Entity(
     walkRight = new Animation(1, rightAnimframes);
     this->em = em;
     r_powerup = new RandomPowerUp(em);
+    invisible = new InvisiblePowerUp(em);
+
+
 }
 void Player::tick()
 {
@@ -74,30 +77,59 @@ void Player::tick()
             x += speed;
             walkRight->tick();
         }
+      
     }
-
+    if(em->isInvisible == true){
+        timer += 1;
+    }
+    if(timer > 600){
+        em->isInvisible = false;
+        timer = 0;
+    }
 }
 
 void Player::render()
 {
     ofSetColor(256, 256, 256);
     // ofDrawRectangle(getBounds());
-    if (facing == UP)
-    {
+   if (em->isInvisible == false){
+     if (facing == UP)
+     {
         walkUp->getCurrentFrame().draw(x, y, width, height);
-    }
-    else if (facing == DOWN)
-    {
+     }
+     else if (facing == DOWN)
+     {
         walkDown->getCurrentFrame().draw(x, y, width, height);
-    }
-    else if (facing == LEFT)
-    {
+     }
+     else if (facing == LEFT)
+     {
         walkLeft->getCurrentFrame().draw(x, y, width, height);
-    }
-    else if (facing == RIGHT)
-    {
+     }
+     else if (facing == RIGHT)
+     { 
         walkRight->getCurrentFrame().draw(x, y, width, height);
+     }
     }
+   else if(em->isInvisible == true){
+     ofSetColor(255,255,0,127); /*Pacman turns transparent when invisible powerup is activated 
+                                so the player can be aware of the pacman postion.*/
+     if (facing == UP)            
+     {
+        walkUp->getCurrentFrame().draw(x, y, width, height);
+     }
+     else if (facing == DOWN)
+     {
+        walkDown->getCurrentFrame().draw(x, y, width, height);
+     }
+     else if (facing == LEFT)
+     {
+       walkLeft->getCurrentFrame().draw(x, y, width, height);
+     }
+     else if (facing == RIGHT)
+     {
+        walkRight->getCurrentFrame().draw(x, y, width, height);
+     }
+   }
     ofSetColor(256, 0, 0);
     ofDrawBitmapString("Health: ", ofGetWidth() / 2 + 100, 50);
 
@@ -134,14 +166,20 @@ void Player::keyPressed(int key)
         }
         break;
     case ' ':  //When spacebar is Pressed it teleports the player to a random position
-     if (em->counter >= 1){
+     if (em->r_counter >= 1){
         powerup = r_powerup;
         powerup->activate();
         setPos(em->PosX);
         setPosY(em->PosY);
-        em->counter -= 1;
+        em->r_counter -= 1;
+      }
+      if(em->in_counter >=1){
+        powerup = invisible;
+        powerup->activate();
+        em->in_counter -= 1;
       }
     }
+    
 }
 
 void Player::keyReleased(int key)
@@ -249,10 +287,11 @@ void Player::checkCollisions()
             {
                 if (dynamic_cast<RandomGhost*>(entity)) {
                     em->randGhostCount = 0;
-                    em->counter += 1;
+                    em->r_counter += 1;
                 }
                 if (dynamic_cast<PeekABooGhost*>(entity)) {
                     em->peekGhostCount = 0;
+                    em->in_counter += 1;
                 }
                 if (em->randGhostCount != 0) {
                     if (dynamic_cast<Ghost*>(entity)) {
@@ -264,8 +303,13 @@ void Player::checkCollisions()
             }
             else
             {
-                die();
+               
+                if(em->isInvisible == false){
+                    die();
+                }
+                
             }
+            
         }
     }
 }

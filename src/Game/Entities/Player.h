@@ -4,6 +4,7 @@
 #include "EntityManager.h"
 #include "PowerUp.h"
 #include "RandomPowerUp.h"
+#include "InvisiblePowerUp.h"
 
 class Player: public Entity{
 
@@ -23,6 +24,7 @@ class Player: public Entity{
         EntityManager* em;
         PowerUp* powerup;
         RandomPowerUp* r_powerup;
+        InvisiblePowerUp* invisible;
         
     public:
         Player(int, int, int , int, EntityManager*);
@@ -44,4 +46,5 @@ class Player: public Entity{
         void setFacing(FACING facing);
         void checkCollisions();
         void die();
+        float timer = 0;
 };

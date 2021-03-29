@@ -18,11 +18,14 @@ public:
 	int randGhostCount = 0;
 	int peekGhostCount = 0;
 	int normalGhostCount = 4;
-	int counter = 0;
+	int r_counter = 0;
     int PosX;
 	int PosY;
 	int playerPositionX;
 	int playerPositionY;
+	bool isInvisible = false;
+	int in_counter =0;
+
 private:
 	bool killable = false;
 	int killableCounter;

@@ -184,6 +184,7 @@ void Player::keyPressed(int key)
         setPos(em->PosX);
         setPosY(em->PosY);
         em->r_counter -= 1;
+        removedDots += 1;
       }
       if(em->in_counter >=1){
         powerup = invisible;
@@ -278,15 +279,18 @@ void Player::checkCollisions()
     {
         if (collides(entity))
         {
-            if (dynamic_cast<Dot *>(entity) || dynamic_cast<BigDot *>(entity))
+            if (dynamic_cast<Dot *>(entity))
             {
                 entity->remove = true;
                 score += 10;
+                removedDots += 1;
             }
             if (dynamic_cast<BigDot *>(entity))
             {
                 score += 20;
+                entity->remove = true;
                 em->setKillable(true);
+                removedDots += 1;
             }
         }
     }

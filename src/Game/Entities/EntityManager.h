@@ -25,6 +25,7 @@ public:
 	int playerPositionY;
 	bool isInvisible = false;
 	int in_counter =0;
+	int removedDots = 0;
 
 private:
 	bool killable = false;

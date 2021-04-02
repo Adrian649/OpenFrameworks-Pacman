@@ -49,4 +49,5 @@ class Player: public Entity{
         void checkCollisions();
         void die();
         float timer = 0;
+        int removedDots = 0;
 };

@@ -71,6 +71,7 @@ void GhostSpawner::randomGhostSpawner() {
 		em->entities[randNum]->remove = true;
 		spawnRandomGhost(posX, posY, "red");
 		flag = true;
+        em->removedDots += 1;
 	}
 }
 

@@ -15,12 +15,17 @@ class GameState: public State{
 		void keyReleased(int key);
 		int getFinalScore();
 		void spawnRandomGhost();
+		void secondMapLoad();
 		bool flag = false;
+		bool hasStarted = true;
 		int score = 0;
+		int totalDots = 0;
+		int mapCounter = 1;
 	
 	private:
 		ofSoundPlayer music;
 		ofImage mapImage;
+		ofImage level2;
 		Map* map;
 		int finalScore=0;
 

@@ -40,6 +40,7 @@ void GameState::tick()
 		map->getPlayer()->setHealth(3);
 		finalScore = map->getPlayer()->getScore();
 		map->getPlayer()->setScore(0);
+		BonusMusic.setPaused(true);
 	}
 	else if (map->getPlayer()->removedDots == (totalDots - map->getEntityManager()->removedDots) && totalDots != 0)
 	{
@@ -47,8 +48,6 @@ void GameState::tick()
 		if (mapCounter == 2) {
 			secondMapLoad();
 		}
-		// hasStarted = true;
-		// totalDots = 0;
 		if (mapCounter == 3)
 		{
 			bonusMapLoad();
@@ -104,10 +103,14 @@ void GameState::keyPressed(int key)
 	}
 	else if (key == '1')
 	{
+		hasStarted = true;
+		totalDots=0;
 		secondMapLoad();
 	}
 	else if (key == '2')
 	{
+		hasStarted = true;
+		totalDots=0;
         bonusMapLoad();
 		BonusMusic.play();
 		BonusMusic.setLoop(true);

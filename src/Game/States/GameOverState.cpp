@@ -3,6 +3,7 @@
 GameOverState::GameOverState() {
 	startButton = new Button(ofGetWidth()/2, ofGetHeight()/2, 64, 50, "Start");
 	img1.load("images/pacman.png");
+	GameOver.load("images/GameOver.png");
 	vector<ofImage> rightAnimframes;
     ofImage temp;
 	for(int i=0; i<3; i++){
@@ -27,7 +28,8 @@ void GameOverState::render() {
 	ofSetColor(256, 256, 256);
 	anim->getCurrentFrame().draw(ofGetWidth()/2, ofGetHeight()/2-100, 100, 100);
 	startButton->render();
-
+	ofSetColor(256);
+    GameOver.draw((ofGetWidth()/2)-50, 100, 193,200);
 
 }
 

@@ -6,6 +6,7 @@
 class GameOverState : public State {
 private:
 	ofImage img1;
+	ofImage GameOver;
 	Button *startButton;
 	Animation* anim;
 	int score=0;

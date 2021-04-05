@@ -47,6 +47,7 @@ void GameState::tick()
 		mapCounter += 1;
 		if (mapCounter == 2) {
 			secondMapLoad();
+			BonusMusic.setPaused(true);
 		}
 		if (mapCounter == 3)
 		{
@@ -106,6 +107,7 @@ void GameState::keyPressed(int key)
 		hasStarted = true;
 		totalDots=0;
 		secondMapLoad();
+		BonusMusic.setPaused(true);
 	}
 	else if (key == '2')
 	{

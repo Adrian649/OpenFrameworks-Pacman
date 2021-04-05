@@ -16,6 +16,7 @@ class GameState: public State{
 		int getFinalScore();
 		void spawnRandomGhost();
 		void secondMapLoad();
+		void bonusMapLoad();
 		bool flag = false;
 		bool hasStarted = true;
 		int score = 0;
@@ -24,8 +25,10 @@ class GameState: public State{
 	
 	private:
 		ofSoundPlayer music;
+		ofSoundPlayer BonusMusic;
 		ofImage mapImage;
 		ofImage level2;
+		ofImage SansLevel;
 		Map* map;
 		int finalScore=0;
 

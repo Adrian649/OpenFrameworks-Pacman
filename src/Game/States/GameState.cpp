@@ -5,8 +5,10 @@
 GameState::GameState()
 {
 	music.load("music/pacman_chomp.wav");
+	BonusMusic.load("music/Megalovania.mp3");
 	mapImage.load("images/map1.png");
 	level2.load("images/level1.png");
+	SansLevel.load("images/mapSans.png");
 	map = MapBuilder().createMap(mapImage);
 }
 void GameState::tick()
@@ -45,15 +47,25 @@ void GameState::tick()
 		if (mapCounter == 2) {
 			secondMapLoad();
 		}
+		// hasStarted = true;
+		// totalDots = 0;
+		if (mapCounter == 3)
+		{
+			bonusMapLoad();
+			BonusMusic.play();
+			BonusMusic.setLoop(true);
+			BonusMusic.setPaused(false);
+		}
 		hasStarted = true;
 		totalDots = 0;
-		if (mapCounter == 3)
+		if (mapCounter == 4)
 		{
 			setFinished(true);
 			setNextState("win");
 			map->getPlayer()->setHealth(3);
 			finalScore = map->getPlayer()->getScore();
 			map->getPlayer()->setScore(0);
+			BonusMusic.setPaused(true);
 		}
 	}
 	else if (getNextState() == "pause")
@@ -82,6 +94,7 @@ void GameState::keyPressed(int key)
 		map->getPlayer()->setHealth(3);
 		finalScore = map->getPlayer()->getScore();
 		map->getPlayer()->setScore(0);
+		BonusMusic.setPaused(true);
 	}
 	else if (key == 'p')
 	{
@@ -92,6 +105,13 @@ void GameState::keyPressed(int key)
 	else if (key == '1')
 	{
 		secondMapLoad();
+	}
+	else if (key == '2')
+	{
+        bonusMapLoad();
+		BonusMusic.play();
+		BonusMusic.setLoop(true);
+		BonusMusic.setPaused(false);
 	}
 }
 
@@ -130,6 +150,12 @@ void GameState::secondMapLoad()
 {
 	delete map;
 	map = MapBuilder().createMap(level2);
+	Player *n = map->getPlayer();
+	n->setScore(n->getScore() + score);
+}
+void GameState::bonusMapLoad(){
+	delete map;
+	map = MapBuilder().createMap(SansLevel);
 	Player *n = map->getPlayer();
 	n->setScore(n->getScore() + score);
 }

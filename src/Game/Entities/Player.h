@@ -14,7 +14,8 @@ class Player: public Entity{
         int score=0;
         bool canMove;
         bool isPacman = true;
-        int counter = 0;
+        int goomba_counter = 0;
+        int sans_counter = 0;
         int speed = 4;
         bool walking = false;
         FACING facing = DOWN;
@@ -27,6 +28,10 @@ class Player: public Entity{
         Animation *goomWalkDown;
         Animation *goomWalkLeft;
         Animation *goomWalkRight;
+        Animation *sansWalkUp;
+        Animation *sansWalkDown;
+        Animation *sansWalkLeft;
+        Animation *sansWalkRight;
         EntityManager* em;
         PowerUp* powerup;
         RandomPowerUp* r_powerup;
@@ -54,6 +59,8 @@ class Player: public Entity{
         void setFacing(FACING facing);
         void checkCollisions();
         void die();
+        bool isGoomba = false;
+        bool isSans = false; 
         float timer = 0;
         int removedDots = 0;
 };

@@ -48,7 +48,7 @@ Player::Player(int x, int y, int width, int height, EntityManager *em) : Entity(
     this->em = em;
     r_powerup = new RandomPowerUp(em);
     invisible = new InvisiblePowerUp(em);
-
+ //-------------------------------------------// Goomba skin
     sprite.load("images/goomb.png");
     down.cropFrom(sprite, 0, 48, 16, 16);
     up.cropFrom(sprite, 0, 32, 16, 16);
@@ -83,6 +83,43 @@ Player::Player(int x, int y, int width, int height, EntityManager *em) : Entity(
     goomWalkUp = new Animation(1, gUpAnimframes);
     goomWalkLeft = new Animation(1, gLeftAnimframes);
     goomWalkRight = new Animation(1, gRightAnimframes);
+  //----------------------------------------------------//Sans skin
+    sprite.load("images/Sans.png");
+    down.cropFrom(sprite, 0, 48, 16, 16);
+    up.cropFrom(sprite, 0, 32, 16, 16);
+    left.cropFrom(sprite, 0, 16, 16, 16);
+    right.cropFrom(sprite, 0, 0, 16, 16);
+
+    vector<ofImage> sDownAnimframes;
+    vector<ofImage> sUpAnimframes;
+    vector<ofImage> sLeftAnimframes;
+    vector<ofImage> sRightAnimframes;
+    for (int i = 0; i < 3; i++)
+    {
+        temp.cropFrom(sprite, i * 16, 48, 16, 16);
+        sDownAnimframes.push_back(temp);
+    }
+    for (int i = 0; i < 3; i++)
+    {
+        temp.cropFrom(sprite, i * 16, 32, 16, 16);
+        sUpAnimframes.push_back(temp);
+    }
+    for (int i = 0; i < 3; i++)
+    {
+        temp.cropFrom(sprite, i * 16, 16, 16, 16);
+        sLeftAnimframes.push_back(temp);
+    }
+    for (int i = 0; i < 3; i++)
+    {
+        temp.cropFrom(sprite, i * 16, 0, 16, 16);
+        sRightAnimframes.push_back(temp);
+    }
+    sansWalkDown = new Animation(1, sDownAnimframes);
+    sansWalkUp = new Animation(1, sUpAnimframes);
+    sansWalkLeft = new Animation(1, sLeftAnimframes);
+    sansWalkRight = new Animation(1, sRightAnimframes);
+  
+
 }
 void Player::tick()
 {
@@ -113,7 +150,7 @@ void Player::tick()
                 walkRight->tick();
             }
         }
-        else
+        else if(isGoomba == true)
         {
             if (facing == UP)
             {
@@ -135,6 +172,30 @@ void Player::tick()
                 x += speed;
                 goomWalkRight->tick();
             }
+        }
+        else if (isSans == true)
+        {
+            if (facing == UP)
+            {
+                y -= speed;
+                sansWalkUp->tick();
+            }
+            else if (facing == DOWN)
+            {
+                y += speed;
+                sansWalkDown->tick();
+            }
+            else if (facing == LEFT)
+            {
+                x -= speed;
+                sansWalkLeft->tick();
+            }
+            else if (facing == RIGHT)
+            {
+                x += speed;
+                sansWalkRight->tick();
+            }
+         
         }
     }
     if (em->isInvisible == true)
@@ -173,7 +234,7 @@ void Player::render()
                 walkRight->getCurrentFrame().draw(x, y, width, height);
             }
         }
-        else
+        else if (isGoomba == true)
         {
             if (facing == UP)
             {
@@ -190,6 +251,25 @@ void Player::render()
             else if (facing == RIGHT)
             {
                 goomWalkRight->getCurrentFrame().draw(x, y, width, height);
+            }
+        }
+        else if (isSans == true)
+        {
+            if (facing == UP)
+            {
+                sansWalkUp->getCurrentFrame().draw(x, y, width, height);
+            }
+            else if (facing == DOWN)
+            {
+                sansWalkDown->getCurrentFrame().draw(x, y, width, height);
+            }
+            else if (facing == LEFT)
+            {
+                sansWalkLeft->getCurrentFrame().draw(x, y, width, height);
+            }
+            else if (facing == RIGHT)
+            {
+                sansWalkRight->getCurrentFrame().draw(x, y, width, height);
             }
         }
     }
@@ -216,7 +296,7 @@ void Player::render()
                 walkRight->getCurrentFrame().draw(x, y, width, height);
             }
         }
-        else
+        else if (isGoomba == true)
         {
             if (facing == UP)
             {
@@ -233,6 +313,26 @@ void Player::render()
             else if (facing == RIGHT)
             {
                 goomWalkRight->getCurrentFrame().draw(x, y, width, height);
+            }
+        }
+        else if(isSans == true)
+        {
+            ofSetColor(1, 224, 252, 127);
+             if (facing == UP)
+            {
+                sansWalkUp->getCurrentFrame().draw(x, y, width, height);
+            }
+            else if (facing == DOWN)
+            {
+                sansWalkDown->getCurrentFrame().draw(x, y, width, height);
+            }
+            else if (facing == LEFT)
+            {
+                sansWalkLeft->getCurrentFrame().draw(x, y, width, height);
+            }
+            else if (facing == RIGHT)
+            {
+                sansWalkRight->getCurrentFrame().draw(x, y, width, height);
             }
         }
     }
@@ -304,12 +404,28 @@ void Player::keyPressed(int key)
         break;
     case 'c':
         isPacman = false;
-        counter += 1;
-        if (counter == 2) {
+        isGoomba = true;
+        isSans = false;
+        goomba_counter += 1;
+        if (goomba_counter == 2) {
             isPacman = true;
-            counter = 0;
+            goomba_counter = 0;
         }
+        break;
+    
+    case 'v':
+      isPacman = false;
+      isGoomba = false;
+      isSans = true;
+        sans_counter += 1;
+        if (sans_counter == 2) {
+            isPacman = true;
+            sans_counter = 0;
+        }
+        break;
+      
     }
+    
 }
 
 void Player::keyReleased(int key)

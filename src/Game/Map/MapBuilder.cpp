@@ -109,7 +109,6 @@ ofImage MapBuilder::getSprite(ofImage mapImage, int i, int j){
 		downPixel = pacman;
 
 	}
-
 	if (currentPixel != leftPixel && currentPixel != upPixel && currentPixel != downPixel && currentPixel == rightPixel){
 
 		return bound[1];

@@ -18,7 +18,6 @@ void MenuState::tick() {
 	if(startButton->wasPressed()){
 		setNextState("Game");
 		setFinished(true);
-
 	}
 }
 void MenuState::render() {

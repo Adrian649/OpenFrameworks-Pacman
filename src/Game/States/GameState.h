@@ -22,6 +22,7 @@ class GameState: public State{
 		int score = 0;
 		int totalDots = 0;
 		int mapCounter = 1;
+		bool isPaused = false;
 	
 	private:
 		ofSoundPlayer music;

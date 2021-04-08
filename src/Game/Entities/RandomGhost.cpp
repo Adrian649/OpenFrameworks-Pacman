@@ -9,6 +9,8 @@ RandomGhost::RandomGhost(int x, int y, int width, int height, ofImage spriteShee
     this->em = em;
     vector<ofImage> killableFrames;
     ofImage temp;
+    ofImage image;
+    image.load("images/newGhosts.png");
     temp.cropFrom(spriteSheet, 584, 64, 16, 16);
     killableFrames.push_back(temp);
     temp.cropFrom(spriteSheet, 600, 64, 16, 16);
@@ -18,9 +20,9 @@ RandomGhost::RandomGhost(int x, int y, int width, int height, ofImage spriteShee
     temp.cropFrom(spriteSheet, 632, 64, 16, 16);
     killableFrames.push_back(temp);
     killableAnim = new Animation(10, killableFrames);
-    if (color == "red")
+    if (color == "green")
     {
-        sprite.cropFrom(spriteSheet, 456, 64, 16, 16);
+        sprite.cropFrom(image, 456, 64, 16, 16);
     }
     else if (color == "pink")
     {

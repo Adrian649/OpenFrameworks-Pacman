@@ -13,6 +13,8 @@ class Player: public Entity{
         int health=3;
         int score=0;
         bool canMove;
+        bool isPacman = true;
+        int counter = 0;
         int speed = 4;
         bool walking = false;
         FACING facing = DOWN;
@@ -21,6 +23,10 @@ class Player: public Entity{
         Animation *walkDown;
         Animation *walkLeft;
         Animation *walkRight;
+        Animation *goomWalkUp;
+        Animation *goomWalkDown;
+        Animation *goomWalkLeft;
+        Animation *goomWalkRight;
         EntityManager* em;
         PowerUp* powerup;
         RandomPowerUp* r_powerup;

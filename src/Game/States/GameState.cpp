@@ -9,6 +9,7 @@ GameState::GameState()
 	mapImage.load("images/map1.png");
 	level2.load("images/level1.png");
 	SansLevel.load("images/mapSans.png");
+
 	map = MapBuilder().createMap(mapImage);
 }
 void GameState::tick()
@@ -79,6 +80,7 @@ void GameState::tick()
 	map->getEntityManager()->playerPositionX = map->getPlayer()->getPos();
 	map->getEntityManager()->playerPositionX = map->getPlayer()->getPosY();
 }
+
 void GameState::render()
 {
 	map->render();
@@ -98,9 +100,9 @@ void GameState::keyPressed(int key)
 	}
 	else if (key == 'p')
 	{
-		isPaused = true;
 		setNextState("pause");
 		setFinished(true);
+		isPaused = true;
 	}
 	else if (key == '1')
 	{
@@ -134,8 +136,7 @@ void GameState::reset()
 {
 	setFinished(false);
 	setNextState("");
-	if (!isPaused)
-	{
+	if (!isPaused) {
 		delete map;
 		map = MapBuilder().createMap(mapImage);
 	}

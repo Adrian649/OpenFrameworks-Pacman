@@ -32,9 +32,13 @@ void ofApp::update(){
 				currentState = winState;
 			}else if(currentState->getNextState() == "pause"){
 				currentState = pauseState;
-				currentState->isPaused = false;
 			}
-			currentState->reset();
+			gameState->isPaused = pauseState->isPaused;
+			if (gameState->isPaused == false) {
+				gameState->reset();
+				pauseState->isPaused = true;
+			}
+			currentState->reset(); 
 		}
 	}
 		

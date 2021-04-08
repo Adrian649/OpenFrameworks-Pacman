@@ -17,6 +17,7 @@ void PauseState::tick() {
 
 	}
     else if (quitButton->wasPressed()){
+		isPaused = false;
         setNextState("Menu");
         setFinished(true);
     }

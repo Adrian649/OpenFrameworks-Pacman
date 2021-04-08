@@ -49,7 +49,40 @@ Player::Player(int x, int y, int width, int height, EntityManager *em) : Entity(
     r_powerup = new RandomPowerUp(em);
     invisible = new InvisiblePowerUp(em);
 
+    sprite.load("images/goomb.png");
+    down.cropFrom(sprite, 0, 48, 16, 16);
+    up.cropFrom(sprite, 0, 32, 16, 16);
+    left.cropFrom(sprite, 0, 16, 16, 16);
+    right.cropFrom(sprite, 0, 0, 16, 16);
 
+    vector<ofImage> gDownAnimframes;
+    vector<ofImage> gUpAnimframes;
+    vector<ofImage> gLeftAnimframes;
+    vector<ofImage> gRightAnimframes;
+    for (int i = 0; i < 3; i++)
+    {
+        temp.cropFrom(sprite, i * 16, 48, 16, 16);
+        gDownAnimframes.push_back(temp);
+    }
+    for (int i = 0; i < 3; i++)
+    {
+        temp.cropFrom(sprite, i * 16, 32, 16, 16);
+        gUpAnimframes.push_back(temp);
+    }
+    for (int i = 0; i < 3; i++)
+    {
+        temp.cropFrom(sprite, i * 16, 16, 16, 16);
+        gLeftAnimframes.push_back(temp);
+    }
+    for (int i = 0; i < 3; i++)
+    {
+        temp.cropFrom(sprite, i * 16, 0, 16, 16);
+        gRightAnimframes.push_back(temp);
+    }
+    goomWalkDown = new Animation(1, gDownAnimframes);
+    goomWalkUp = new Animation(1, gUpAnimframes);
+    goomWalkLeft = new Animation(1, gLeftAnimframes);
+    goomWalkRight = new Animation(1, gRightAnimframes);
 }
 void Player::tick()
 {
@@ -57,32 +90,59 @@ void Player::tick()
     checkCollisions();
     if (canMove)
     {
-        if (facing == UP)
+        if (isPacman)
         {
-            y -= speed;
-            walkUp->tick();
+            if (facing == UP)
+            {
+                y -= speed;
+                walkUp->tick();
+            }
+            else if (facing == DOWN)
+            {
+                y += speed;
+                walkDown->tick();
+            }
+            else if (facing == LEFT)
+            {
+                x -= speed;
+                walkLeft->tick();
+            }
+            else if (facing == RIGHT)
+            {
+                x += speed;
+                walkRight->tick();
+            }
         }
-        else if (facing == DOWN)
+        else
         {
-            y += speed;
-            walkDown->tick();
+            if (facing == UP)
+            {
+                y -= speed;
+                goomWalkUp->tick();
+            }
+            else if (facing == DOWN)
+            {
+                y += speed;
+                goomWalkDown->tick();
+            }
+            else if (facing == LEFT)
+            {
+                x -= speed;
+                goomWalkLeft->tick();
+            }
+            else if (facing == RIGHT)
+            {
+                x += speed;
+                goomWalkRight->tick();
+            }
         }
-        else if (facing == LEFT)
-        {
-            x -= speed;
-            walkLeft->tick();
-        }
-        else if (facing == RIGHT)
-        {
-            x += speed;
-            walkRight->tick();
-        }
-      
     }
-    if(em->isInvisible == true){
+    if (em->isInvisible == true)
+    {
         timer += 1;
     }
-    if(timer > 600){
+    if (timer > 600)
+    {
         em->isInvisible = false;
         timer = 0;
     }
@@ -92,44 +152,90 @@ void Player::render()
 {
     ofSetColor(256, 256, 256);
     // ofDrawRectangle(getBounds());
-   if (em->isInvisible == false){
-     if (facing == UP)
-     {
-        walkUp->getCurrentFrame().draw(x, y, width, height);
-     }
-     else if (facing == DOWN)
-     {
-        walkDown->getCurrentFrame().draw(x, y, width, height);
-     }
-     else if (facing == LEFT)
-     {
-        walkLeft->getCurrentFrame().draw(x, y, width, height);
-     }
-     else if (facing == RIGHT)
-     { 
-        walkRight->getCurrentFrame().draw(x, y, width, height);
-     }
+    if (em->isInvisible == false)
+    {
+        if (isPacman)
+        {
+            if (facing == UP)
+            {
+                walkUp->getCurrentFrame().draw(x, y, width, height);
+            }
+            else if (facing == DOWN)
+            {
+                walkDown->getCurrentFrame().draw(x, y, width, height);
+            }
+            else if (facing == LEFT)
+            {
+                walkLeft->getCurrentFrame().draw(x, y, width, height);
+            }
+            else if (facing == RIGHT)
+            {
+                walkRight->getCurrentFrame().draw(x, y, width, height);
+            }
+        }
+        else
+        {
+            if (facing == UP)
+            {
+                goomWalkUp->getCurrentFrame().draw(x, y, width, height);
+            }
+            else if (facing == DOWN)
+            {
+                goomWalkDown->getCurrentFrame().draw(x, y, width, height);
+            }
+            else if (facing == LEFT)
+            {
+                goomWalkLeft->getCurrentFrame().draw(x, y, width, height);
+            }
+            else if (facing == RIGHT)
+            {
+                goomWalkRight->getCurrentFrame().draw(x, y, width, height);
+            }
+        }
     }
-   else if(em->isInvisible == true){
-     ofSetColor(255,255,0,127); /*Pacman turns transparent when invisible powerup is activated 
+    else if (em->isInvisible == true)
+    {
+        ofSetColor(255, 255, 0, 127); /*Pacman turns transparent when invisible powerup is activated 
                                 so the player can be aware of the pacman postion.*/
-     if (facing == UP)            
-     {
-        walkUp->getCurrentFrame().draw(x, y, width, height);
-     }
-     else if (facing == DOWN)
-     {
-        walkDown->getCurrentFrame().draw(x, y, width, height);
-     }
-     else if (facing == LEFT)
-     {
-       walkLeft->getCurrentFrame().draw(x, y, width, height);
-     }
-     else if (facing == RIGHT)
-     {
-        walkRight->getCurrentFrame().draw(x, y, width, height);
-     }
-   }
+        if (isPacman)
+        {
+            if (facing == UP)
+            {
+                walkUp->getCurrentFrame().draw(x, y, width, height);
+            }
+            else if (facing == DOWN)
+            {
+                walkDown->getCurrentFrame().draw(x, y, width, height);
+            }
+            else if (facing == LEFT)
+            {
+                walkLeft->getCurrentFrame().draw(x, y, width, height);
+            }
+            else if (facing == RIGHT)
+            {
+                walkRight->getCurrentFrame().draw(x, y, width, height);
+            }
+        }
+        else
+        {
+            if (facing == UP)
+            {
+                goomWalkUp->getCurrentFrame().draw(x, y, width, height);
+            }
+            else if (facing == DOWN)
+            {
+                goomWalkDown->getCurrentFrame().draw(x, y, width, height);
+            }
+            else if (facing == LEFT)
+            {
+                goomWalkLeft->getCurrentFrame().draw(x, y, width, height);
+            }
+            else if (facing == RIGHT)
+            {
+                goomWalkRight->getCurrentFrame().draw(x, y, width, height);
+            }
+        }
+    }
     ofSetColor(256, 0, 0);
     ofDrawBitmapString("Health: ", ofGetWidth() / 2 + 100, 50);
 
@@ -140,15 +246,17 @@ void Player::render()
     ofDrawBitmapString("Score:" + to_string(score), ofGetWidth() / 2 - 200, 50);
 
     //--------------------------------------------------------// Icons for power-ups
-    if(em->in_counter >= 1){ 
+    if (em->in_counter >= 1)
+    {
         in_powerup.load("images/InvisiblePowerUp.png");
-        ofSetColor(25,224,227);
-        in_powerup.draw(ofGetWidth() / 2 + 350, 70, 80,52);
+        ofSetColor(25, 224, 227);
+        in_powerup.draw(ofGetWidth() / 2 + 350, 70, 80, 52);
     }
-    if(em->r_counter >= 1){
+    if (em->r_counter >= 1)
+    {
         rand_powerup.load("images/RandomPowerUp.png");
-        ofSetColor(25,224,227);
-        rand_powerup.draw(ofGetWidth() / 2 + 350, 150, 80,52);
+        ofSetColor(25, 224, 227);
+        rand_powerup.draw(ofGetWidth() / 2 + 350, 150, 80, 52);
     }
 }
 
@@ -177,22 +285,31 @@ void Player::keyPressed(int key)
             health++;
         }
         break;
-    case ' ':  //When spacebar is Pressed it teleports the player to a random position
-     if (em->r_counter >= 1){
-        powerup = r_powerup;
-        powerup->activate();
-        setPos(em->PosX);
-        setPosY(em->PosY);
-        em->r_counter -= 1;
-        removedDots += 1;
-      }
-      if(em->in_counter >=1){
-        powerup = invisible;
-        powerup->activate();
-        em->in_counter -= 1;
-      }
+    case ' ': //When spacebar is Pressed it teleports the player to a random position
+        if (em->r_counter >= 1)
+        {
+            powerup = r_powerup;
+            powerup->activate();
+            setPos(em->PosX);
+            setPosY(em->PosY);
+            em->r_counter -= 1;
+            removedDots += 1;
+        }
+        if (em->in_counter >= 1)
+        {
+            powerup = invisible;
+            powerup->activate();
+            em->in_counter -= 1;
+        }
+        break;
+    case 'c':
+        isPacman = false;
+        counter += 1;
+        if (counter == 2) {
+            isPacman = true;
+            counter = 0;
+        }
     }
-    
 }
 
 void Player::keyReleased(int key)
@@ -301,31 +418,33 @@ void Player::checkCollisions()
             Ghost *ghost = dynamic_cast<Ghost *>(entity);
             if (ghost->getKillable())
             {
-                if (dynamic_cast<RandomGhost*>(entity)) {
+                if (dynamic_cast<RandomGhost *>(entity))
+                {
                     em->randGhostCount = 0;
                     em->r_counter += 1;
                 }
-                if (dynamic_cast<PeekABooGhost*>(entity)) {
+                if (dynamic_cast<PeekABooGhost *>(entity))
+                {
                     em->peekGhostCount = 0;
                     em->in_counter += 1;
                 }
-                if (em->randGhostCount != 0) {
-                    if (dynamic_cast<Ghost*>(entity)) {
+                if (em->randGhostCount != 0)
+                {
+                    if (dynamic_cast<Ghost *>(entity))
+                    {
                         em->normalGhostCount -= 1;
                     }
                 }
                 ghost->remove = true;
-                
             }
             else
             {
-               
-                if(em->isInvisible == false){
+
+                if (em->isInvisible == false)
+                {
                     die();
                 }
-                
             }
-            
         }
     }
 }

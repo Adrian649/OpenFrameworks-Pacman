@@ -43,10 +43,10 @@ void GhostSpawner::tick(){
         randomGhostSpawner();
     }
     if (score == 1000 && !peekABooFlag) {
-        spawnPeekABooGhost("cyan");
+        spawnPeekABooGhost("grey");
     }
     if (score > 1000 && em->peekGhostCount == 0) {
-        spawnPeekABooGhost("cyan");
+        spawnPeekABooGhost("grey");
     }
 }
 
@@ -69,7 +69,7 @@ void GhostSpawner::randomGhostSpawner() {
 		int posX = em->entities[randNum]->getPosX();
 		int posY = em->entities[randNum]->getPosY();
 		em->entities[randNum]->remove = true;
-		spawnRandomGhost(posX, posY, "red");
+		spawnRandomGhost(posX, posY, "green");
 		flag = true;
         em->removedDots += 1;
 	}
@@ -87,7 +87,10 @@ void GhostSpawner::keyPressed(int key){
         spawnGhost(random_color);
     }
     if (key == 'l') {
-        spawnRandomGhost(x, y, random_color);
+        spawnRandomGhost(x, y, "green");
+    }
+    if (key == 'k') {
+        spawnPeekABooGhost("grey");
     }
 }
 

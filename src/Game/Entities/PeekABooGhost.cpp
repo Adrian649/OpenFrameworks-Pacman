@@ -5,6 +5,8 @@ PeekABooGhost::PeekABooGhost(int x, int y, int width, int height, ofImage sprite
     this->em = em;
     vector<ofImage> killableFrames;
     ofImage temp;
+    ofImage image;
+    image.load("images/newGhosts.png");
     temp.cropFrom(spriteSheet, 584, 64, 16, 16);
     killableFrames.push_back(temp);
     temp.cropFrom(spriteSheet, 600, 64, 16, 16);
@@ -16,8 +18,8 @@ PeekABooGhost::PeekABooGhost(int x, int y, int width, int height, ofImage sprite
     killableAnim = new Animation(10, killableFrames);
     if(color == "red"){
         sprite.cropFrom(spriteSheet,456,64,16,16);
-    }else if(color=="pink"){
-        sprite.cropFrom(spriteSheet,456,78,16,16);
+    }else if(color=="grey"){
+        sprite.cropFrom(image,456,78,16,16);
     }else if(color=="cyan"){
         sprite.cropFrom(spriteSheet,456,96,16,16);
     }else if(color=="orange"){

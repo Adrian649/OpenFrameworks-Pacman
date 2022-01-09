@@ -7,7 +7,7 @@
 This project is a recreation of the classic pac-man game with some twists like power ups and unique ghosts.
 ### Features Added:
 - Ghosts spawn with different colors. <img src= "red-ghost.png"/> <img src= "pink-ghost.png"/> <img src= "cyan-ghost.png"/> <img src= "orange-ghost.png"/>
-- Pac-man can only have a maximum of 3 lives.
+- Pac-man can only have a maximum of 3 lives. <img src = "health.png"/>
 - Map properly resets after restarting the game.
 - Added a Power Up Class which includes the random power up and invisible power up classes.
 - Added a Random Ghost. spawns every 500 points and gives the random power up.

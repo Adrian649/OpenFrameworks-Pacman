@@ -1,5 +1,8 @@
 # CIIC 4010 Advanced Programming Second Project:
 ## OpenFrameworks-Pacman
+
+<img src= "pac-preview.gif"  />
+
 ## What is this project about?
 This project is a recreation of the classic pac-man game with some twists like power ups and unique ghosts.
 ### Features Added:

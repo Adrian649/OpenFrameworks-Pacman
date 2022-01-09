@@ -1,5 +1,5 @@
 # CIIC 4010 Advanced Programming Second Project:
-## OpenFrameworks-Pacman
+## OpenFrameworks-Pacman <img src= "pac.gif"  />
 
 <img src= "pac-preview.gif"  />
 
